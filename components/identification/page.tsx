@@ -6,10 +6,13 @@ import { PreviewCard } from "@/components/identification/PreviewCard";
 import { ResultCard } from "@/components/identification/ResultCard";
 import { ErrorCard } from "@/components/identification/ErrorCard";
 import { identifyPlantMock } from "@/lib/identify";
+import { logger } from "@/lib/logger";
+import { toast } from "@/lib/toast";
+import { JSX } from "react/jsx-dev-runtime";
 
 type Step = "UPLOAD" | "PREVIEW" | "LOADING" | "SUCCESS" | "ERROR";
 
-export default function IdentifikasiPage() {
+export default function IdentifikasiPage(): JSX.Element {
     const [step, setStep] = useState<Step>("UPLOAD");
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -20,7 +23,7 @@ export default function IdentifikasiPage() {
         description: string;
     } | null>(null);
 
-    const handleFileSelected = (f: File) => {
+    const handleFileSelected = (f: File): void => {
         setFile(f);
         const objectUrl = URL.createObjectURL(f);
         setPreviewUrl(objectUrl);
@@ -29,7 +32,7 @@ export default function IdentifikasiPage() {
         setStep("PREVIEW");
     };
 
-    const resetAll = () => {
+    const resetAll = (): void => {
         if (previewUrl) URL.revokeObjectURL(previewUrl);
         setFile(null);
         setPreviewUrl(null);
@@ -38,7 +41,7 @@ export default function IdentifikasiPage() {
         setStep("UPLOAD");
     };
 
-    const handleIdentify = async () => {
+    const handleIdentify = async (): Promise<void> => {
         if (!file || !previewUrl) return;
         setStep("LOADING");
 
@@ -52,14 +55,19 @@ export default function IdentifikasiPage() {
                     description: res.description,
                 });
                 setStep("SUCCESS");
+                toast.success(`Tanaman berhasil diidentifikasi: ${res.name}`);
             } else {
                 setErrorMessage(res.message);
                 setStep("ERROR");
+                toast.error(res.message);
             }
         } catch (err) {
-            console.error(err);
-            setErrorMessage("Terjadi kesalahan pada server. Coba lagi beberapa saat.");
+            logger.error("Plant identification error", err);
+            const errorMsg =
+                "Terjadi kesalahan pada server. Coba lagi beberapa saat.";
+            setErrorMessage(errorMsg);
             setStep("ERROR");
+            toast.error(errorMsg);
         }
     };
 

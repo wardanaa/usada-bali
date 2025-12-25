@@ -1,12 +1,13 @@
 import { ButtonHTMLAttributes } from "react";
+import { JSX } from "react/jsx-dev-runtime";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: "primary" | "outline" | "danger";
 };
 
-export function Button({ variant = "primary", className = "", ...props }: ButtonProps) {
+export function Button({ variant = "primary", className = "", ...props }: ButtonProps): JSX.Element {
     const base =
-        "inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
+        "inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
 
     const variants: Record<string, string> = {
         primary:

@@ -1,3 +1,5 @@
+import { logger } from "@/lib/logger";
+
 export type IdentifyResult =
   | {
       status: "success";
@@ -15,8 +17,11 @@ export async function identifyPlantMock(file: File): Promise<IdentifyResult> {
   // Simulasi delay backend
   await new Promise((r) => setTimeout(r, 1200));
 
+  logger.info("Plant identification attempt", { fileName: file.name });
+
   // Dummy logic: kalau nama file mengandung "fail", anggap tidak dikenali
   if (file.name.toLowerCase().includes("fail")) {
+    logger.warn("Plant not detected in image");
     return {
       status: "error",
       message:
@@ -24,6 +29,7 @@ export async function identifyPlantMock(file: File): Promise<IdentifyResult> {
     };
   }
 
+  logger.info("Plant identified successfully", { name: "Temulawak" });
   return {
     status: "success",
     name: "Temulawak",

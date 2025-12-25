@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { JSX } from "react/jsx-dev-runtime";
 
 const navLinks = [
     { href: "/", label: "Home" },
@@ -10,7 +11,7 @@ const navLinks = [
     { href: "/identifikasi", label: "Identifikasi Tanaman" },
 ];
 
-export function Navbar() {
+export function Navbar(): JSX.Element {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
 
@@ -49,7 +50,9 @@ export function Navbar() {
                 <button
                     className="inline-flex flex-col gap-1 md:hidden"
                     onClick={() => setOpen((v) => !v)}
-                    aria-label="Toggle menu"
+                    aria-label="Toggle navigation menu"
+                    aria-expanded={open}
+                    aria-controls="mobile-nav"
                 >
                     <span className="h-0.5 w-6 bg-slate-800" />
                     <span className="h-0.5 w-6 bg-slate-800" />
@@ -58,7 +61,9 @@ export function Navbar() {
 
             {/* Mobile nav */}
             {open && (
-                <nav className="border-t border-slate-100 bg-white px-4 pb-4 pt-2 text-sm md:hidden">
+                <nav
+                    id="mobile-nav"
+                    className="border-t border-slate-100 bg-white px-4 pb-4 pt-2 text-sm md:hidden">
                     <div className="flex flex-col gap-2">
                         {navLinks.map((link) => {
                             const active = pathname === link.href;

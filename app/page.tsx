@@ -30,7 +30,7 @@ export default function HomePage() {
           <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-green-100 via-green-50 to-white shadow-lg" />
           <div className="relative flex h-full items-center justify-center">
             <Image
-              src="https://images.pexels.com/photos/1498929/pexels-photo-1498929.jpeg?auto=compress&cs=tinysrgb&w=600"
+              src="https://images.pexels.com/photos/13578137/pexels-photo-13578137.jpeg?auto=compress&cs=tinysrgb&w=600"
               alt="Daun herbal"
               fill
               className="rounded-3xl object-cover"

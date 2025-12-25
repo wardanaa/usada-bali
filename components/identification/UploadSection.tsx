@@ -1,23 +1,21 @@
 import { ChangeEvent } from "react";
 import { Button } from "@/components/ui/Button";
+import { validateFile } from "@/lib/validation";
+import { toast } from "@/lib/toast";
+import { JSX } from "react/jsx-dev-runtime";
 
 type Props = {
     onFileSelected: (file: File) => void;
 };
 
-export function UploadSection({ onFileSelected }: Props) {
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+export function UploadSection({ onFileSelected }: Props): JSX.Element {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        const validTypes = ["image/jpeg", "image/jpg", "image/png"];
-        if (!validTypes.includes(file.type)) {
-            alert("Format file tidak didukung. Gunakan JPG/JPEG/PNG.");
-            return;
-        }
-
-        if (file.size > 8 * 1024 * 1024) {
-            alert("Ukuran file terlalu besar. Maksimal 8MB.");
+        const validation = validateFile(file);
+        if (!validation.isValid) {
+            toast.error(validation.error);
             return;
         }
 

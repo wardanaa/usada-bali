@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { JSX } from "react/jsx-dev-runtime";
 
 type Props = {
     imageUrl: string;
@@ -17,7 +18,7 @@ export function ResultCard({
     description,
     onNew,
     onEnd,
-}: Props) {
+}: Props): JSX.Element {
     return (
         <section className="mx-auto max-w-4xl px-4 py-10 md:px-6 md:py-14">
             <div className="rounded-3xl bg-white shadow-md">
