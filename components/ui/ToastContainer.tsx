@@ -1,7 +1,6 @@
 "use client";
 
 import { useToasts } from "@/lib/toast";
-import { useEffect } from "react";
 
 export function ToastContainer() {
   const { toasts, removeToast } = useToasts();
