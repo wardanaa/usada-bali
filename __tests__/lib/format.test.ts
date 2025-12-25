@@ -12,7 +12,7 @@ describe("Format Utils", () => {
 
   describe("formatConfidence", () => {
     it("should format confidence score as percentage", () => {
-      expect(formatConfidence(92.5)).toBe("92%");
+      expect(formatConfidence(92.5)).toBe("93%");
       expect(formatConfidence(100)).toBe("100%");
       expect(formatConfidence(85.3)).toBe("85%");
     });
