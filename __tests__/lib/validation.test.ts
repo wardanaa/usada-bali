@@ -37,7 +37,7 @@ describe("Validation Utils", () => {
   describe("sanitizeFileName", () => {
     it("should remove special characters", () => {
       const result = sanitizeFileName("file@#$%.jpg");
-      expect(result).toBe("file_____.jpg");
+      expect(result).toBe("file____.jpg");
     });
 
     it("should preserve valid characters", () => {
